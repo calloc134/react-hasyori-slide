@@ -111,7 +111,8 @@ paginate: true
   - 行うべき変更などが保持される
 - stateNode: ノードの状態
   - 生成された DOM インスタンスなど
-  - 関数コンポーネントの場合は実体がないため null
+  - 関数コンポーネントの場合は
+    実体がないため null
 - その他…
 
 ![bg right:30% contain](./images/fiberproperty.png)
