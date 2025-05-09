@@ -7,9 +7,11 @@ paginate: true
 
 レンダー・コミット編
 
+![bg right:50% contain](./images/top.png)
+
 ---
 
-## React のレンダリングの流れ
+## React のレンダリング
 
 - トリガーフェーズ
   - レンダリングを発動
@@ -21,6 +23,8 @@ paginate: true
   - 実 DOM に書き込み
 
 今回は下 2 つを解説します
+
+![bg right:50% contain](./images/renderingFlow.png)
 
 ---
 
@@ -34,10 +38,19 @@ paginate: true
   - React アプリケーションの Root ノード
     この FiberRootNode から二つのツリーが生える
 
+![bg right:50% contain](./images/fibernode1.png)
+
+---
+
+## Fiber ノード (続き)
+
 - current
   - 現在のツリー
 - workInProgress
-  - 現在レンダリング中の新しいツリー
+  - 現在レンダリング中の
+    新しいツリー
+
+![bg right:50% contain](./images/fibernode1.png)
 
 ---
 
@@ -46,11 +59,17 @@ paginate: true
 - ダブルバッファリングの考え方
 
   - 更新をパッと終わらせる
-  - レンダリング中に UI が壊れることを防ぐ
+  - レンダリング中に
+    UI が壊れることを防ぐ
 
 - 旧版のツリーを保持することで
-  - リソースのリサイクルができる
-  - メモリ割り当てのコスト削減
+
+  - リソースの
+    リサイクルができる
+  - メモリ割り当ての
+    コスト削減
+
+  ![bg right:30% contain](./images/fibernode2.png)
 
 ---
 
@@ -74,7 +93,10 @@ paginate: true
 - sibling: 兄弟ノード
 - return: 親ノード
 
-これを利用することでノードを巡回できる
+これを利用することで
+簡単にノードを巡回できる
+
+![bg right:50% contain](./images/fiberref.png)
 
 ---
 
@@ -86,13 +108,18 @@ paginate: true
 - stateNode: ノードの状態
   - 生成された DOM インスタンスなど
   - 関数コンポーネントの場合は実体がないため null
+- その他…
+
+![bg right:30% contain](./images/fiberproperty.png)
 
 ---
 
 ### レンダー開始
 
 `performUnitOfWork` 関数から始まる
-レンダーの最初はコンポーネント の種類(tag)によって分岐
+レンダーの最初は
+コンポーネントの種類(tag)によって
+動作が変わる
 
 #### 関数コンポーネントの実行 A
 
@@ -123,12 +150,17 @@ paginate: true
 
 その結果に応じて flags にフラグを設定
 
-- Placement: 新しいノードを追加する
-- Update: 既存のノードを更新する
-- Deletion: 既存のノードを削除する
+- Placement:
+  新しいノードを追加する
+- Update:
+  既存のノードを更新する
+- Deletion:
+  既存のノードを削除する
 
 このフラグは二進数で作られており
 合成することが可能
+
+![bg right:40% contain](./images/fiberflag.png)
 
 ---
 
@@ -146,9 +178,12 @@ paginate: true
 
 - DOM ノードを生成して stateNode に保持
 
-関数コンポーネントの場合は DOM ノードは生成されないことに注意
+- ※ 関数コンポーネントの場合は
+  DOM ノードは生成されないことに注意
 
-- stateNode は null のまま
+などを行う
+
+![bg right:30% contain](./images/completeWork.png)
 
 ---
 
@@ -175,14 +210,20 @@ paginate: true
 
 5. 親がいるか調査
 
-- 親がいなければ レンダリングそのものの
+- 親がいなければ
+  レンダリングそのものの
   終了フラグを立て処理を終了
 - 親がいれば下へ
 
-6. 親ノードに戻り、→3 で C 実行と兄弟調査を繰り返す
+6. 親ノードに戻り
+   →3 で C 実行・兄弟調査
+   繰り返す
 
 A・B の処理と C の処理は
-それぞれのノードでかならず 1 回ずつ行われる仕組み
+それぞれのノードでかならず
+1 回ずつ行われる仕組み
+
+![bg right:50% contain](./images/junkai.png)
 
 ---
 
@@ -192,21 +233,36 @@ A・B の処理と C の処理は
 (詳細は省略)
 
 すべて適用処理が終わったとき
-current と workInProgress の二つのツリーを交換
-作業中だったツリーが current に昇格する
+current と workInProgress の
+二つのツリーを交換
+作業中だったツリーが
+current に昇格する
+
+![bg right:50% contain](./images/commit.png)
 
 ---
 
 ## コミットフェーズ (続き)
 
 WIP はここで破棄せず
-今後のレンダリングでリソースは適宜再利用され有効活用される
+今後のレンダリングでリソースは
+適宜再利用され有効活用される
 
 - リソース作成の手間が省けてエコ
+
+![bg right:40% contain](./images/recycle.png)
 
 ---
 
 # まとめ
+
+- Fiber の仕組み
+- レンダーの流れ
+  - 関数コンポーネント実行
+  - 差分検出
+  - 後処理
+- 巡回のアルゴリズム
+- コミットフェーズ
 
 お疲れ様でした！
 
