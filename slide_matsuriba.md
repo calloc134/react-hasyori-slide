@@ -6,6 +6,8 @@ paginate: true
 # 端折りまくって学ぶ React の内部
 
 レンダー・コミット編
+@calloc134
+2025 5/9 Matsuriba vol.9
 
 ![bg right:50% contain](./images/top.png)
 
@@ -35,8 +37,10 @@ paginate: true
 
 - FiberRootNode
 
-  - React アプリケーションの Root ノード
-    この FiberRootNode から二つのツリーが生える
+  - React アプリケーションの
+    Root ノード
+    この FiberRootNode から
+    二つのツリーが生える
 
 ![bg right:50% contain](./images/fibernode1.png)
 
@@ -80,7 +84,7 @@ paginate: true
 今回解説する主要な Fiber ノードの種類は以下の 2 つ
 
 - FunctionComponent
-  - 私達が普段書いている関数コンポーネント
+  - みなさんが普段書いている関数コンポーネント
 - HostComponent
   - DOM ノード
   - web であれば`<div>` `<span>` `<p>` といった HTML タグ
